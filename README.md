@@ -1,5 +1,5 @@
 # flux
-Not much so see here, yet. But please stay tuned.
+Not much to see here, yet. But please stay tuned.
 
 
 
