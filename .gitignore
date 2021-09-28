@@ -1,0 +1,14 @@
+/app/
+/.idea/
+/.run/
+/vendor/
+/storage/
+/var/
+config.dev.php
+.phpunit*
+.buildpath
+.project
+
+
+
+
