@@ -1,0 +1,108 @@
+{
+    "orders": {
+        "name": "orders",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "integer",
+                "autoincrement": true
+            },
+            "ordernamename": {
+                "name": "ordernamename",
+                "type": "integer"
+            }
+        },
+        "constraints": {
+            "suppliers_pkey": {
+                "name": "suppliers_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "primary",
+                "definition": "PRIMARY KEY (id)"
+            }
+        },
+        "indexes": []
+    },
+    "customers": {
+        "name": "customers",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "integer",
+                "autoincrement": true
+            },
+            "customernumber": {
+                "name": "customernumber",
+                "type": "varchar",
+                "length": 64
+            },
+            "lastname": {
+                "name": "lastname",
+                "type": "varchar",
+                "length": 200
+            },
+            "salutation": {
+                "name": "salutation",
+                "type": "text",
+                "default": "other"
+            },
+            "customercreated": {
+                "name": "customercreated",
+                "type": "datetimetz",
+                "default": "now()"
+            },
+            "customerchanged": {
+                "name": "customerchanged",
+                "type": "datetimetz",
+                "nullable": true
+            },
+            "ordersum": {
+                "name": "ordersum",
+                "type": "decimal",
+                "precision": 15,
+                "scale": 2,
+                "nullable": true
+            },
+            "lastorder": {
+                "name": "lastorder",
+                "type": "date",
+                "nullable": true
+            }
+        },
+        "constraints": {
+            "customers_customernumber_unique": {
+                "name": "customers_customernumber_unique",
+                "columns": [
+                    "customernumber"
+                ],
+                "type": "unique",
+                "definition": "UNIQUE (customernumber)"
+            },
+            "customers_pkey": {
+                "name": "customers_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "primary",
+                "definition": "PRIMARY KEY (id)"
+            },
+            "customers_salutation_check": {
+                "name": "customers_salutation_check",
+                "columns": [
+                    "salutation"
+                ],
+                "type": "check",
+                "definition": "CHECK ((salutation = ANY (ARRAY['male'::text, 'female'::text, 'other'::text])))"
+            }
+        },
+        "indexes": {
+            "customers_ordersum": {
+                "name": "customers_ordersum",
+                "columns": [
+                    "ordersum"
+                ]
+            }
+        }
+    }
+}

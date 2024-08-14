@@ -1,0 +1,115 @@
+{
+    "customers": {
+        "name": "customers",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "integer",
+                "autoincrement": true
+            },
+            "customernumber": {
+                "name": "customernumber",
+                "type": "varchar",
+                "length": "64"
+            },
+            "firstname": {
+                "name": "firstname",
+                "type": "varchar",
+                "length": "200",
+                "nullable": true
+            },
+            "lastname": {
+                "name": "lastname",
+                "type": "varchar",
+                "length": "200"
+            },
+            "salutation": {
+                "name": "salutation",
+                "type": "enum",
+                "values": [
+                    "male",
+                    "female",
+                    "other"
+                ],
+                "default": "other"
+            },
+            "customercreated": {
+                "name": "customercreated",
+                "type": "datetimetz",
+                "default": "CURRENT_TIMESTAMP"
+            },
+            "customerchanged": {
+                "name": "customerchanged",
+                "type": "datetimetz",
+                "nullable": true
+            },
+            "ordersum": {
+                "name": "ordersum",
+                "type": "decimal",
+                "precision": "15",
+                "scale": "2",
+                "nullable": true
+            }
+        },
+        "constraints": [],
+        "indexes": {
+            "PRIMARY": {
+                "name": "PRIMARY",
+                "primary": true,
+                "columns": [
+                    "id"
+                ]
+            },
+            "customernumber": {
+                "name": "customernumber",
+                "unique": true,
+                "columns": [
+                    "customernumber"
+                ]
+            },
+            "firstname": {
+                "name": "firstname",
+                "columns": [
+                    "firstname",
+                    "lastname"
+                ]
+            },
+            "ordersum": {
+                "name": "ordersum",
+                "columns": [
+                    "ordersum"
+                ]
+            }
+        }
+    },
+    "suppliers": {
+        "name": "suppliers",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "integer",
+                "autoincrement": true
+            },
+            "companyname": {
+                "name": "companyname",
+                "type": "integer"
+            }
+        },
+        "constraints": [],
+        "indexes": {
+            "PRIMARY": {
+                "name": "PRIMARY",
+                "primary": true,
+                "columns": [
+                    "id"
+                ]
+            },
+            "companyname": {
+                "name": "companyname",
+                "columns": [
+                    "companyname"
+                ]
+            }
+        }
+    }
+}

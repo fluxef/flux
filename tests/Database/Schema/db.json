@@ -1,0 +1,75 @@
+{
+    "usertable": {
+        "name": "users",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "integer",
+                "autoincrement": true
+            },
+            "username": {
+                "name": "username",
+                "type": "varchar",
+                "length": 64,
+                "default": ""
+            },
+            "gender": {
+                "name": "gender",
+                "type": "enum",
+                "values": [
+                    "male",
+                    "female",
+                    "other"
+                ],
+                "default": "other"
+            },
+            "email": {
+                "name": "email",
+                "type": "varchar",
+                "length": 255,
+                "nullable": true
+            },
+            "usercreated": {
+                "name": "usercreated",
+                "type": "datetimetz",
+                "default": "current_timestamp"
+            },
+            "userchanged": {
+                "name": "userchanged",
+                "type": "datetimetz",
+                "default": "current_timestamp",
+                "onupdate": "current_timestamp"
+            }
+        },
+        "constraints": [],
+        "indexes": {
+            "PRIMARY": {
+                "name": "PRIMARY",
+                "primary": true,
+                "columns": [
+                    "id"
+                ]
+            },
+            "username": {
+                "name": "username",
+                "unique": true,
+                "columns": [
+                    "username"
+                ]
+            },
+            "email": {
+                "name": "email",
+                "columns": [
+                    "email"
+                ]
+            },
+            "gendercreated": {
+                "name": "gendercreated",
+                "columns": [
+                    "gender",
+                    "usercreated"
+                ]
+            }
+        }
+    }
+}
