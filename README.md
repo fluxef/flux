@@ -1,3 +1,5 @@
+[![tests](https://github.com/fluxef/flux/actions/workflows/tests.yml/badge.svg)](https://github.com/fluxef/flux/actions/workflows/tests.yml)
+
 ## About Flux
 Flux is a small and efficient PHP framework made up of reusable components for the core functionality of web and console applications.
 
