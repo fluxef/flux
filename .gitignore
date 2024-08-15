@@ -1,14 +1,10 @@
-/app/
-/.idea/
+/.idea
 /.run/
 /vendor/
-/storage/
-/var/
-config.dev.php
+composer.phar
+/version.txt
 .phpunit*
 .buildpath
 .project
-
-
-
+composer.lock
 

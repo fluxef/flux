@@ -1,13 +1,51 @@
 {
     "name": "flux/flux",
     "type": "library",
-    "description": " Flux initial empty Package. Please stay tuned.",
-    "license": "MIT",
+    "description": "The Flux Framework.",
     "keywords": [
-        "flux",
-        "library"
+        "framework",
+        "flux"
+    ],
+    "license": "MIT",
+    "homepage": "https://www.ins.de",
+    "authors": [
+        {
+            "name": "INS Developers",
+            "email": "info@ins.de"
+        }
     ],
     "require": {
-        "php": "^8.0"
-    }
+        "php": "^8.3",
+        "ext-pdo": "*",
+        "psr/container": "^1.1",
+        "psr/log": "^1.1",
+        "psr/http-message": "^1.1"
+    },
+    "replace": {
+        "flux/config": "self.version",
+        "flux/console": "self.version",
+        "flux/container": "self.version",
+        "flux/core": "self.version",
+        "flux/crypto": "self.version",
+        "flux/database": "self.version",
+        "flux/events": "self.version",
+        "flux/lock": "self.version",
+        "flux/logger": "self.version",
+        "flux/psr7": "self.version"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flux\\": "src/Flux"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
