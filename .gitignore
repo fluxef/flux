@@ -1,10 +1,12 @@
 /.idea
 /.run/
-/vendor/
-composer.phar
-/version.txt
-.phpunit*
+/vendor
 .buildpath
 .project
+composer.phar
 composer.lock
-
+.DS_Store
+Thumbs.db
+phpunit.xml
+.phpunit.cache
+.phpunit.result.cache

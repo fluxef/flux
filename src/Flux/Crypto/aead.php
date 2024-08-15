@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Flux\Crypto;
 
-
 use Exception;
 use SodiumException;
 use const SODIUM_CRYPTO_PWHASH_ALG_ARGON2ID13;

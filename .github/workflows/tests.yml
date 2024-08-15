@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Unit Tests
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [8.3]
-        phpunit: ['11.0.1']
+        phpunit: ['11.3.1']
         stability: [prefer-stable]
 
     name: PHP ${{ matrix.php }} - PHPUnit ${{ matrix.phpunit }} - ${{ matrix.stability }}
@@ -31,7 +31,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, igbinary, msgpack, lzf, zstd, lz4, memcached, gmp, :php-psr
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, sodium, pdo, sqlite, pdo_sqlite, gd, redis, igbinary, msgpack, lzf, zstd, lz4, memcached, gmp, :php-psr
         ini-values: error_reporting=E_ALL
         tools: composer:v2
         coverage: none
