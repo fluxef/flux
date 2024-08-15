@@ -1,7 +1,7 @@
 {
     "name": "flux/flux",
     "type": "library",
-    "description": "The Flux Enhanced Framework.",
+    "description": "The Flux Enhanced Framework",
     "keywords": [
         "framework",
         "flux"

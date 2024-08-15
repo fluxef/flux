@@ -32,5 +32,8 @@ ALTER TABLE customers ADD COLUMN lastorder DATE DEFAULT NULL;
 4. check and adjust the expected sql-statements in test class
 
 
+
 thats it. add more changes if neccessary.
+
+
 
