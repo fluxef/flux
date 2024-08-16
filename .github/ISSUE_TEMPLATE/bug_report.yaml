@@ -1,5 +1,5 @@
 name: 🐛 Bug Report
-description: ⚠️ Do not report security issues with this bug report, use https://github.com/fluxef/flux/security/advisories/new instead
+description: ⚠️ Do not report security issues with this bug report, use "report securityy advisories" instead
 labels: Bug
 
 body:
