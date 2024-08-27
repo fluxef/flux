@@ -9,6 +9,7 @@ use DateTimeZone;
 use Psr\Log\LogLevel;
 use Psr\Log\InvalidArgumentException;
 use function date_default_timezone_get;
+use function is_bool;
 use function is_null;
 
 /**
@@ -111,7 +112,7 @@ class Logger implements LoggerInterface
         }
     }
 
-    protected function escapeSDValue(string|int|null $inhalt = null): string
+    protected function escapeSDValue(mixed $inhalt = null): string
     {
         /*
          * Inside PARAM-VALUE, the characters '"' (ABNF %d34), '\' (ABNF %d92),
@@ -123,10 +124,18 @@ class Logger implements LoggerInterface
          */
         $backslash = chr(92);
 
+
+        if (is_bool($inhalt)) {
+            if ($inhalt === true)
+                return '1';
+            else
+                return '0';
+        }
+
         if (empty($inhalt))
             return '';
 
-        $inhalt = (string) $inhalt;
+        $inhalt = (string)$inhalt;
 
         // zuerst backslash verdoppeln
         $inhalt = str_replace($backslash, $backslash . $backslash, $inhalt);
