@@ -91,4 +91,29 @@ class LoggerTest extends TestCase
 
     }
 
+    public function testescapeSDValue_booltrue(): void
+    {
+        $input = true;
+        $output = '1';
+        $logger = new Logger();
+        $reflection = new ReflectionClass($logger);
+        $method = $reflection->getMethod('escapeSDValue');
+        $result = $method->invokeArgs($logger, array($input));
+
+        $this->assertEquals($output, $result);
+
+    }
+    public function testescapeSDValue_boolfalse(): void
+    {
+        $input = false;
+        $output = '0';
+        $logger = new Logger();
+        $reflection = new ReflectionClass($logger);
+        $method = $reflection->getMethod('escapeSDValue');
+        $result = $method->invokeArgs($logger, array($input));
+
+        $this->assertEquals($output, $result);
+
+    }
+
 }
