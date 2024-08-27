@@ -115,5 +115,17 @@ class LoggerTest extends TestCase
         $this->assertEquals($output, $result);
 
     }
+    public function testescapeSDValue_float(): void
+    {
+        $input = 47.123;
+        $output = '47.123';
+        $logger = new Logger();
+        $reflection = new ReflectionClass($logger);
+        $method = $reflection->getMethod('escapeSDValue');
+        $result = $method->invokeArgs($logger, array($input));
+
+        $this->assertEquals($output, $result);
+
+    }
 
 }
