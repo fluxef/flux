@@ -3,20 +3,9 @@ declare(strict_types=1);
 
 namespace Flux\Logger;
 
-
-/**
- * Class Backtrace
- * @package Flux\Logger
- */
 class Backtrace
 {
 
-
-    /**
-     * @param array|null $trace
-     * @param bool $removeActual
-     * @return array
-     */
     public static function shiftLineFunction(array $trace = null, bool $removeActual = true): array
     {
         if (empty($trace))
@@ -50,11 +39,6 @@ class Backtrace
 
     }
 
-    /**
-     *
-     * @param array|null $trace
-     * @return string
-     */
     public static function formatCallable(array $trace = null): string
     {
         if (empty($trace))
@@ -87,10 +71,6 @@ class Backtrace
 
     }
 
-    /**
-     * @param array|null $trace
-     * @return string
-     */
     public static function formatFile(array $trace = null): string
     {
 
@@ -112,10 +92,7 @@ class Backtrace
     }
 
     /**
-     * Erzeugt aus einem Trace-Array ein trace-display-array
-     *
-     * @param array|null $trace
-     * @return array
+     * Creates a trace-display-array from a trace array
      */
     public static function Extract(array $trace = null): array
     {
@@ -142,10 +119,7 @@ class Backtrace
     }
 
     /**
-     * erzeugt aus einem trace-array einen string
-     *
-     * @param array|null $tarr
-     * @return string
+     * Creates a string from a trace array
      */
     public static function asString(array $tarr = null): string
     {

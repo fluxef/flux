@@ -12,10 +12,6 @@ use function date_default_timezone_get;
 use function is_bool;
 use function is_null;
 
-/**
- * Class Logger
- * @package Flux\Logger
- */
 class Logger implements LoggerInterface
 {
 
@@ -45,7 +41,7 @@ class Logger implements LoggerInterface
         // openlog($this->app, LOG_NDELAY, $this->facility);
     }
 
-    public function setLogPath(string $path)
+    public function setLogPath(string $path): void
     {
         $this->filenames = array(
             LogLevel::EMERGENCY => $path . 'cms.emergency',
@@ -60,7 +56,7 @@ class Logger implements LoggerInterface
 
     }
 
-    public function setLogLevelPath(string $level, string $path)
+    public function setLogLevelPath(string $level, string $path): void
     {
         // if no valid laglevel =>  throw exception
 
@@ -88,9 +84,6 @@ class Logger implements LoggerInterface
 
     }
 
-    /**
-     * @param array $data
-     */
     protected function write(array $data): void
     {
         if (isset($this->filenames[$data['level']])) {
@@ -137,30 +130,29 @@ class Logger implements LoggerInterface
 
         $inhalt = (string)$inhalt;
 
-        // zuerst backslash verdoppeln
+        // first double backslash
         $inhalt = str_replace($backslash, $backslash . $backslash, $inhalt);
 
-        // dann die anderen beiden
+        // then the other two
         $inhalt = str_replace('"', $backslash . '"', $inhalt);
         $inhalt = str_replace(']', $backslash . ']', $inhalt);
 
         return $inhalt;
     }
 
-    /**
-     * @param array $data
-     * @return string
-     */
     protected function formatter(array $data): string
     {
+        /**
+         * RFC 3164: <priority>VERSION TIMESTAMP HOSTNAME APPLICATION[PID]: MSG
+         * RFC 5424: <priority>VERSION ISOTIMESTAMP HOSTNAME APPLICATION PID MESSAGEID STRUCTURED-DATA MSG
+         *
+         * openlog() always creates the ':' after the APPLICATION, so it is more RFC 3164 compliant than RFC 5424 compliant.
+         * syslog(int $priority, string $message) therefore only sets the RFC 3164 MSG, but we now set PID MESSAGEID STRUCTURED-DATA MSG in it
+         *
+         * bom deactivated until further notice $bom = "\xEF\xBB\xBF";
+         */
 
-        // RFC 3164: <priority>VERSION TIMESTAMP HOSTNAME APPLICATION[PID]: MSG
-        // RFC 5424: <priority>VERSION ISOTIMESTAMP HOSTNAME APPLICATION PID MESSAGEID STRUCTURED-DATA MSG
 
-        // openlog() erzeugt immer von sich aus den ':' nach der APPLICATION, ist also eher RFC 3164 konform, statt RFC 5424 konform.
-        // syslog(int $priority, string $message) setzt daher auch nur die RFC 3164 MSG, wir setzen aber darin nun PID MESSAGEID STRUCTURED-DATA MSG
-
-        // bom bis auf weiteres deaktiviert $bom = "\xEF\xBB\xBF";
         $bom = '';
 
         // procid
@@ -175,7 +167,7 @@ class Logger implements LoggerInterface
         else
             $ret .= '- ';
 
-        // sd-element kommt aus context, andere context parameter müssen wir löschen
+        // sd-element comes from context, other context parameters we have to delete
         $sd = $data;
         unset($sd['msgid']);
         unset($sd['backtrace']);
@@ -193,17 +185,13 @@ class Logger implements LoggerInterface
                 $sd[$feld] = $inhalt;
         }
 
-        // if (! isset($sd['ip']))
-        // $sd['ip']=$this->clientip;
-        // print_r($sd);
-
         if (empty($sd))
             $ret .= '-'; // Structured Data
         else {
             $ret .= '[';
-            $sp = ' '; // immer, da am anfang nun immer der sd-name steht
+            $sp = ' '; // always, because the sd name is always at the beginning
 
-            // zuerst private enterprise number und sd-name, siehe https://tools.ietf.org/html/rfc5424#page-15
+            // first private enterprise number and sd-name, see https://tools.ietf.org/html/rfc5424#page-15
             $ret .= 'cmsv1@1596';
 
             if (isset($sd['host'])) {
@@ -223,13 +211,9 @@ class Logger implements LoggerInterface
             $ret .= ']';
         }
 
-        // echo("\nRET=".$ret."\n");
-
-        // message fängt immer mit der BOM an
+        // message always starts with the BOM
         if (!empty($data['message']))
             $ret .= ' ' . $bom . $data['message'];
-
-        // print_r($data);
 
         return $ret;
     }
@@ -246,9 +230,6 @@ class Logger implements LoggerInterface
         return $this;
     }
 
-    /**
-     * @param int $uid
-     */
     public function setUserID(int $uid = 0): self
     {
         $this->userid = $uid;
@@ -275,20 +256,13 @@ class Logger implements LoggerInterface
 
     }
 
-    /**
-     *
-     */
     public function disableBacktrace(): self
     {
         $this->withtrace = false;
         return $this;
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function emergency($message = '', array $context = array())
+    public function emergency($message = '', array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -296,11 +270,7 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -308,11 +278,7 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::ALERT, $message, $context);
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -320,11 +286,7 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::CRITICAL, $message, $context);
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function error($message, array $context = array())
+    public function error($message, array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -332,11 +294,7 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::ERROR, $message, $context);
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -344,11 +302,8 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::WARNING, $message, $context);
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function notice($message, array $context = array())
+
+    public function notice($message, array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -356,11 +311,7 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::NOTICE, $message, $context);
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function info($message, array $context = array())
+    public function info($message, array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -368,11 +319,7 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::INFO, $message, $context);
     }
 
-    /**
-     * @param string $message
-     * @param array $context
-     */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = array()): void
     {
         if ((!isset($context['notrace'])) && ($this->withtrace) && empty($context['backtrace']))
             $context['backtrace'] = Backtrace::shiftLineFunction(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
@@ -380,12 +327,8 @@ class Logger implements LoggerInterface
         $this->log(LogLevel::DEBUG, $message, $context);
     }
 
-    /**
-     * @param mixed $level
-     * @param string $message
-     * @param array $context
-     */
-    public function log($level, $message, array $context = array())
+
+    public function log($level, $message, array $context = array()): void
     {
 
         // if no valid laglevel =>  throw exception
