@@ -41,7 +41,7 @@ class ServerInputStream implements StreamInterface
      *
      * @return void
      */
-    public function close()
+    public function close(): void
     {
         fclose($this->resource);
     }
@@ -111,7 +111,7 @@ class ServerInputStream implements StreamInterface
      *     SEEK_END: Set position to end-of-stream plus offset.
      * @throws RuntimeException on failure.
      */
-    public function seek($offset, $whence = SEEK_SET)
+    public function seek($offset, $whence = SEEK_SET): void
     {
         fseek($this->resource, $offset, $whence);
     }
@@ -126,7 +126,7 @@ class ServerInputStream implements StreamInterface
      * @link http://www.php.net/manual/en/function.fseek.php
      * @see seek()
      */
-    public function rewind()
+    public function rewind(): void
     {
         rewind($this->resource);
     }
@@ -148,7 +148,7 @@ class ServerInputStream implements StreamInterface
      * @return int Returns the number of bytes written to the stream.
      * @throws RuntimeException on failure.
      */
-    public function write($string)
+    public function write(string $string): int
     {
         throw new RuntimeException('input stream is not writeable');
     }

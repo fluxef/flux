@@ -5,7 +5,6 @@ namespace Flux\Psr7;
 
 trait HeaderTrait
 {
-
     protected array $httpheaders = array();
 
     /**
