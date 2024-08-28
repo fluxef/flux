@@ -124,7 +124,7 @@ class PDOSQLite extends PDOAbstract implements DatabaseInterface
             return 0;
         }
 
-        $id = $this->Driver->lastInsertId();
+        $id = (int)$this->Driver->lastInsertId();
 
         if ($this->Debug) {
             $time_end = microtime(true);

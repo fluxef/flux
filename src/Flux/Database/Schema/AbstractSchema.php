@@ -168,7 +168,7 @@ abstract class AbstractSchema
 
         if ($withmkdir)
             if (!file_exists($configpath))
-                mkdir($configpath, true);
+                mkdir($configpath, 0777,true);
 
         return $configpath . DIRECTORY_SEPARATOR . $ConnectionName . '.json';
     }

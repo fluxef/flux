@@ -484,7 +484,7 @@ class PostgreSQLSchema extends AbstractSchema implements SchemaInterface
     }
 
 
-    protected function alterTableMigration(array $soll, array $ist): array  // TODO
+    protected function alterTableMigration(array $soll, array $ist): array
     {
 
         $ret = array();

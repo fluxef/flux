@@ -121,10 +121,10 @@ class PDOPostgreSQL extends PDOAbstract implements DatabaseInterface
             $statement->execute($binding);  // return value of statement
 
             if (is_null(($SerialColumn))) {   // we do not have a "returning id" have to get the insert id with the second best way, with lastinsertid
-                $id = $this->Driver->lastInsertId();
+                $id = (int)$this->Driver->lastInsertId();
             } else {
                 $returning = $statement->fetchAll();
-                $id = $returning[0][$SerialColumn];
+                $id = (int)$returning[0][$SerialColumn];
             }
 
         } catch (PDOException $ex) {

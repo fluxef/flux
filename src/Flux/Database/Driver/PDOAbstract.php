@@ -391,7 +391,7 @@ abstract class PDOAbstract implements DatabaseInterface
      */
     public function setDebug(bool $debug = true): void
     {
-        if ($debug == true)
+        if ($debug)
             $this->Debug = true;
         else
             $this->Debug = false;
