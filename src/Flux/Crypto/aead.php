@@ -14,10 +14,7 @@ use const SODIUM_CRYPTO_SECRETBOX_NONCEBYTES;
 
 class aead
 {
-    /**
-     * @throws SodiumException
-     * @throws Exception
-     */
+
     public static function ArrayEncryptBase64(array $data, string $key): string
     {
         if (empty($key)) {
@@ -32,9 +29,6 @@ class aead
 
     }
 
-    /**
-     * @throws Exception
-     */
     public static function ArrayDecryptBase64(string $Base64message, string $key): array
     {
         if (empty($key)) {
