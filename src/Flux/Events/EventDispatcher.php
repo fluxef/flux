@@ -28,7 +28,7 @@ class EventDispatcher implements EventDispatcherInterface
         return $event;
     }
 
-    public function addListener(string $eventName, EventListenerInterface $listener, int $priority = 0)
+    public function addListener(string $eventName, EventListenerInterface $listener, int $priority = 0): void
     {
         $this->listeners[$eventName][] = $listener;
     }

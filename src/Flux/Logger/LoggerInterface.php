@@ -5,19 +5,14 @@ namespace Flux\Logger;
 
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
-
-/**
- * Interface LoggerInterface
- * @package Flux\Logger
- */
 interface LoggerInterface extends PsrLoggerInterface
 {
 
     public function __construct(string $app = 'ins-cmf', $facility = LOG_USER);
 
-    public function setLogPath(string $path);
+    public function setLogPath(string $path): void;
 
-    public function setLogLevelPath(string $level, string $path);
+    public function setLogLevelPath(string $level, string $path): void;
 
     public function setUserID(int $uid = 0): self;
 

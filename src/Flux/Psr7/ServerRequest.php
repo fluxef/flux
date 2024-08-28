@@ -107,20 +107,20 @@ class ServerRequest implements ServerRequestInterface
 
         $this->uri = new Uri(urldecode($_SERVER['SCRIPT_URI']));    // full uri
 
-        // für PHP_SELF den Query-String, falls vorhanden, abtrennen
+        // for PHP_SELF, separate the query string, if present
 
         $pos = strrpos($uri, '?');
-        if ($pos === false)  // drei Gleichheitszeichen, wichtig! Kein ? gefunden
+        if ($pos === false)  // three equal signs, important! No ? found
             $this->frontend['PHP_SELF'] = $uri;
         else
             $this->frontend['PHP_SELF'] = substr($uri, 0, $pos);
 
         $PHP_SELF = $this->frontend['PHP_SELF'];
 
-        $myuri = substr($PHP_SELF, 1); // führendes slash entfernen
+        $myuri = substr($PHP_SELF, 1); // remove leading slash
 
         $pos = strrpos($myuri, '/');
-        if ($pos === false) { // drei Gleichheitszeichen, wichtig!
+        if ($pos === false) { // three equal signs, important!
             $cat = '';
         } else {
             $cat = substr($myuri, 0, $pos);

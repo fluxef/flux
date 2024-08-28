@@ -90,7 +90,7 @@ class ConnectionPool
         return array();
     }
 
-    public function loadConfigFromFile(string $filename = '', string $storagepath = '')
+    public function loadConfigFromFile(string $filename = '', string $storagepath = ''): void
     {
         if (empty($filename))
             return;

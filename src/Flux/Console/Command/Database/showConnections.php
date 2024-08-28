@@ -8,29 +8,22 @@ use Flux\Console\Command\Command;
 use Flux\Logger\LoggerInterface;
 use Flux\Database\ConnectionPool;
 
-/**
- * Class showConnections
- * @package Flux\Console\Command\Database
- */
 class showConnections extends Command implements CommandInterface
 {
     public function __construct(protected LoggerInterface $logger, protected ConnectionPool $pool)
     {
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->addOption('help', 'h', self::OPTION_IS_BOOL, 'show usage information');
     }
 
-    public function showHelp()
+    public function showHelp(): void
     {
         echo $this->getUsage() . "\n";
     }
 
-    /**
-     * @return int
-     */
     public function execute(): int
     {
 

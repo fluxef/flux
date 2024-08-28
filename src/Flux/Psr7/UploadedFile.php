@@ -5,6 +5,7 @@ namespace Flux\Psr7;
 
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
+use RuntimeException;
 
 class UploadedFile implements UploadedFileInterface
 {
@@ -28,6 +29,7 @@ class UploadedFile implements UploadedFileInterface
     public function getStream(): StreamInterface
     {
         // TODO: Implement getStream() method.
+        throw new RuntimeException('Not implemented');
     }
 
     /**
@@ -65,6 +67,8 @@ class UploadedFile implements UploadedFileInterface
     public function moveTo($targetPath)
     {
         // TODO: Implement moveTo() method.
+        throw new RuntimeException('Not implemented');
+
     }
 
     /**
@@ -79,6 +83,7 @@ class UploadedFile implements UploadedFileInterface
     public function getSize(): ?int
     {
         // TODO: Implement getSize() method.
+        return null;
     }
 
     /**
@@ -98,6 +103,7 @@ class UploadedFile implements UploadedFileInterface
     public function getError(): int
     {
         // TODO: Implement getError() method.
+        return UPLOAD_ERR_OK;
     }
 
     /**
@@ -116,6 +122,7 @@ class UploadedFile implements UploadedFileInterface
     public function getClientFilename(): ?string
     {
         // TODO: Implement getClientFilename() method.
+        return null;
     }
 
     /**
@@ -134,5 +141,6 @@ class UploadedFile implements UploadedFileInterface
     public function getClientMediaType(): ?string
     {
         // TODO: Implement getClientMediaType() method.
+        return null;
     }
 }

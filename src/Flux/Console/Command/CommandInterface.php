@@ -3,100 +3,41 @@ declare(strict_types=1);
 
 namespace Flux\Console\Command;
 
-/**
- * Class CommandInterface
- * @package Flux\Console\Command
- */
 interface CommandInterface
 {
-    const ARGUMENT_REQUIRED = 0;
-    const ARGUMENT_OPTIONAL = 1;
+    const int ARGUMENT_REQUIRED = 0;
+    const int ARGUMENT_OPTIONAL = 1;
 
-    const OPTION_IS_BOOL = 0;
-    const OPTION_HAS_VALUE = 1;
+    const int OPTION_IS_BOOL = 0;
+    const int OPTION_HAS_VALUE = 1;
 
-    /**
-     *
-     * @return void
-     */
-    public function configure();
+    public function configure(): void;
 
-    /**
-     * @return int
-     */
     public function execute(): int;
 
-    public function showHelp();
+    public function showHelp(): void;
 
-    /**
-     * @param string $longName
-     * @param string|null $shortName
-     * @param int $flag
-     * @param string $usage
-     * @return void
-     */
     public function addOption(string $longName, ?string $shortName, int $flag = self::OPTION_IS_BOOL, string $usage = ''): void;
 
-    /**
-     * @param string $name
-     * @param int $flag
-     * @param string $usage
-     * @return void
-     */
-    public function addArgument(string $name, int $flag = self::ARGUMENT_OPTIONAL, string $usage = '');
+    public function addArgument(string $name, int $flag = self::ARGUMENT_OPTIONAL, string $usage = ''): void;
 
-    /**
-     * @param array $args
-     * @return void
-     */
-    public function parseInput(array $args);
+    public function parseInput(array $args): void;
 
-    /**
-     * @return bool
-     */
     public function verifyInput(): bool;
 
-    /**
-     * @param string $name
-     * @return mixed
-     */
     public function getOptionValue(string $name): mixed;
 
-    /**
-     * @param string $name
-     * @return mixed
-     */
     public function getArgumentValue(string $name): mixed;
 
-    /**
-     * @return string
-     */
     public function getUsage(): string;
 
-    /**
-     * @param string $name
-     * @return void
-     */
     public function setName(string $name): void;
 
-    /**
-     * @param string|null $output
-     * @param bool $newline
-     */
-    public function write(?string $output = null, bool $newline = false);
+    public function write(?string $output = null, bool $newline = false): void;
 
-    /**
-     * @param string $line
-     * @return mixed
-     */
-    public function writeln(?string $line = null);
+    public function writeln(?string $line = null): void;
 
-
-    /**
-     * @param array $line
-     * @return mixed
-     */
-    public function writelnTable(array $line);
+    public function writelnTable(array $line): void;
 
     public function flushTableBuffer();
 

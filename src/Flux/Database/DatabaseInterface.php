@@ -5,7 +5,7 @@ namespace Flux\Database;
 
 use Flux\Database\Query\Builder;
 use Flux\Logger\LoggerInterface;
-use \PDO;
+use PDO;
 
 
 interface DatabaseInterface
@@ -36,142 +36,88 @@ interface DatabaseInterface
     public function add(string $table, array $data, string $SerialColumn = null): int;
 
     /**
-     * Lese einen Datensatz in ein Array, dabei ist der Feldname der Index und der
-     * Feldinhalt der Wert.
-     *
-     * @param string $sql
-     * @param array $binding
-     * @return array
+     * Read a record into an array, where the field name is the index and the field content is the value.
      */
     public function get(string $sql, array $binding = array()): array;
 
     /**
-     * Speichert einen Datensatz in die Datenbank
+     * Saves a record to the database
      *
      * @param string $table
-     *            Name der Datenbanktabellen
+     *            Name of the database tables
      * @param array $data
-     *            Assoziatives Array der zu speicherneden Daten
+     *            Associative array of data to be stored
      * @param array $keynames
-     *            Array der Schlüssel die den Gesamtkey / kombinierten Index bilden
+     *            Array of keys that form the total key / combined index
      * @param bool $changelog
-     *            true = änderungen in changelog-db vermerken
+     *            true = Record changes in changelog-db
      * @param array|null $ignorekeynames
-     *            Array der Schlüssel die zur Veränderungsprüfung nicht verwendet werden sollen (z.B. last change timestamp o.ä.)
+     *            Array of keys that should not be used for change checking (e.g. last change timestamp or similar)
      * @param DatabaseInterface|null $changelogdb
-     *            $db objekt, falls der schangelog in eine andere DB geschrieben werden soll
-     * @return bool true=hat geklappt, false=hat nicht geklappt
+     *            $db object if the schangelog should be written to another DB
+     * @return bool true=worked, false=did not work
      */
     public function put(string $table, array $data, array $keynames, bool $changelog = true, array $ignorekeynames = null, DatabaseInterface $changelogdb = null): bool;
 
     /**
-     * erzeugt eine Liste mit Value/Text records, wie sie für GUI-Dbforms DropDownfelder genutzt wird
-     *
-     * @param string $sql
-     * @param array $binding
-     * @param string $indexname
-     * @param string $valuename
-     * @param string $value
-     * @param string $text
-     * @return array
+     * creates a list of value/text records as used for GUI-Dbforms dropdown fields
      */
     public function getlistUI(string $sql, array $binding = array(), string $indexname = '', string $valuename = '', string $value = 'value', string $text = 'text'): array;
 
     /**
-     * liefert eine liste datensätze, auch assoziativ nach einem feld indiziert und auch statt des records eine variable sein können
-     *
-     * @param string $sql
-     * @param array|null $binding
-     * @param string|null $indexname
-     * @param string|null $valuename
-     * @return array
+     * returns a list of records, also associatively indexed by a field and can also be a variable instead of the record
      */
     public function getlist(string $sql, array $binding = NULL, string $indexname = null, string $valuename = null): array;
 
     /**
-     * löschen daten in tabelle $table, in $data stehen die keys
-     *
-     * @param string $table
-     * @param array $data
-     * @return bool
+     * delete data in table $table, in $data are the keys
      */
     public function del($table = '', $data = array()): bool;
 
     /**
-     * setzt und löscht das debug-flag
-     *
-     * @param bool $debug
+     * sets and clears the debug flag
      */
     public function setDebug(bool $debug = true): void;
 
     /**
-     * liefert den status des debug-flags
-     *
-     * @return bool
+     * returns the status of the debug flag
      */
     public function getDebug(): bool;
 
 
     /*
-     * liefert das PDO Datenbankobjekt um direkt darauf zuzugreifen
-     *
-     */
-    /**
-     * @return PDO
+     * provides the PDO database object to access it directly as a last resort
      */
     public function getPDO(): PDO;
 
     /**
-     * erzeugt und liefert einen DatumZeit-String der in mysql timestamp und datetime feldern genutzt werden kann
-     * wenn kein parameter übergeben wird, wird der aktuelle zeitpunkt geliefert
-     *
-     * @param string $time
-     * @param string $timeformat
-     * @return string
+     * creates and returns a datetime string that can be used in mysql timestamp and datetime fields
+     * if no parameter is passed, the current time is returned
      */
     public function timestamp(string $time = 'now', string $timeformat = '', bool $withTZ = false): string;
 
     /**
-     * führt ein select-query durch
-     *
-     * @param string $sql
-     * @param array|null $binding
-     * @return array
+     * executes a select query
      */
     public function select(string $sql, array $binding = null): array;
 
     /**
-     * führt ein update-query durch
-     *
-     * @param string $sql
-     * @param array|null $binding
-     * @return bool
+     * executes an update query
      */
     public function update(string $sql, array $binding = null): bool;
 
     /**
-     * führt ein insert-query durch
-     *
-     * @param string $sql
-     * @param array|null $binding
-     * @return int
+     * executes an insert query
      */
     public function insert(string $sql, array $binding = null, string $SerialColumn = null): int;
 
     /**
-     * führt ein delete query durch
-     *
-     * @param string $sql
-     * @param array|null $binding
-     * @return bool
+     * executes a delete query
      */
     public function delete(string $sql, array $binding = null): bool;
 
     /**
-     * führt ein allgemeines query durch welches weder parameter hat noch einen rückgabewert liefert
-     *
-     * @param string $sql
-     * @return bool
+     * executes a general query which has neither parameters nor a return value
      */
     public function statement(string $sql): bool;
 

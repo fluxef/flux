@@ -18,7 +18,7 @@ class Uri implements UriInterface
     protected string $query = '';
     protected string $fragment = '';
 
-    protected const PORTS = [
+    protected const array PORTS = [
         'http' => 80,
         'https' => 443,
         'imap' => 143,
@@ -32,7 +32,7 @@ class Uri implements UriInterface
         $this->init($uri);
     }
 
-    protected function init(string $uri)
+    protected function init(string $uri): void
     {
 
         if (empty($uri))
@@ -240,7 +240,7 @@ class Uri implements UriInterface
      * any characters. To determine what characters to encode, please refer to
      * RFC 3986, Sections 2 and 3.4.
      *
-     * As an example, if a value in a key/value pair of the query string should
+     * As an example, if a value in a key/value pair in the query string should
      * include an ampersand ("&") not intended as a delimiter between values,
      * that value MUST be passed in encoded form (e.g., "%26") to the instance.
      *
@@ -289,7 +289,7 @@ class Uri implements UriInterface
      * @return static A new instance with the specified scheme.
      * @throws InvalidArgumentException for invalid or unsupported schemes.
      */
-    public function withScheme($scheme): static
+    public function withScheme(string $scheme): static
     {
         $obj = clone($this);
         $obj->scheme = strtolower($scheme);
@@ -306,11 +306,11 @@ class Uri implements UriInterface
      * user; an empty string for the user is equivalent to removing user
      * information.
      *
-     * @param string $user The user name to use for authority.
-     * @param null|string $password The password associated with $user.
+     * @param string $user The username to use for authority.
+     * @param string|null $password The password associated with $user.
      * @return static A new instance with the specified user information.
      */
-    public function withUserInfo($user, $password = null): static
+    public function withUserInfo(string $user, ?string $password = null): static
     {
         $obj = clone($this);
         $obj->user = $user;
@@ -331,7 +331,7 @@ class Uri implements UriInterface
      * @return static A new instance with the specified host.
      * @throws InvalidArgumentException for invalid hostnames.
      */
-    public function withHost($host): static
+    public function withHost(string $host): static
     {
         $obj = clone($this);
         $obj->host = $host;
@@ -350,12 +350,12 @@ class Uri implements UriInterface
      * A null value provided for the port is equivalent to removing the port
      * information.
      *
-     * @param null|int $port The port to use with the new instance; a null value
+     * @param int|null $port The port to use with the new instance; a null value
      *     removes the port information.
      * @return static A new instance with the specified port.
      * @throws InvalidArgumentException for invalid ports.
      */
-    public function withPort($port): static
+    public function withPort(?int $port): static
     {
         if (is_null($port))
             $port = 0;
@@ -387,7 +387,7 @@ class Uri implements UriInterface
      * @return static A new instance with the specified path.
      * @throws InvalidArgumentException for invalid paths.
      */
-    public function withPath($path): static
+    public function withPath(string $path): static
     {
         $obj = clone($this);
         $obj->path = $path;
@@ -409,7 +409,7 @@ class Uri implements UriInterface
      * @return static A new instance with the specified query string.
      * @throws InvalidArgumentException for invalid query strings.
      */
-    public function withQuery($query): static
+    public function withQuery(string $query): static
     {
         $obj = clone($this);
         $obj->query = $query;
@@ -430,7 +430,7 @@ class Uri implements UriInterface
      * @param string $fragment The fragment to use with the new instance.
      * @return static A new instance with the specified fragment.
      */
-    public function withFragment($fragment): static
+    public function withFragment(string $fragment): static
     {
         $obj = clone($this);
         $obj->fragment = $fragment;
