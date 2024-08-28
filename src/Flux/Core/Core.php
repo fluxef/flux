@@ -13,9 +13,9 @@ use Flux\Config\Config;
 class Core implements ApplicationInterface
 {
     protected string $coreversion = '5.13.2';
-    const   ProductionEnvironmentState = 0;
-    const   StagingEnvironmentState = 1;
-    const   DevelopmentEnvironmentState = 2;
+    const   int ProductionEnvironmentState = 0;
+    const   int StagingEnvironmentState = 1;
+    const   int DevelopmentEnvironmentState = 2;
 
     /*
      * static class vars are only in the scope of the actual class, so we need "self" (NOT "static" !) here to use these
