@@ -59,10 +59,7 @@ class Config implements ConfigurationInterface
 
     }
 
-    /**
-     * Liefert einen Parameter aus dem lokalen Storage mit seinem Typ (meist "string" bei DB-Parametern), oder null or defaultvalue
-     *
-     */
+
     public function get(string $key, mixed $defaultvalue = null): mixed
     {
         if (empty($key))
@@ -75,12 +72,7 @@ class Config implements ConfigurationInterface
 
     }
 
-    /**
-     * Prüft, ob ein Parameter im lokalen Storage ist
-     *
-     * @param string $key
-     * @return bool
-     */
+
     public function has(string $key): bool
     {
         if (empty($key))
@@ -90,13 +82,6 @@ class Config implements ConfigurationInterface
 
     }
 
-    /**
-     * setzt einen Parameter im lokalen Storage, egal ob er existiert, oder nicht
-     *
-     * @param string|null $key
-     * @param null $value
-     * @return Config
-     */
     public function set(string $key = null, $value = null): self
     {
 
@@ -107,12 +92,7 @@ class Config implements ConfigurationInterface
 
     }
 
-    /**
-     * setzt einen Parameter im lokalen Storage, aber nur, wenn er noch nicht existiert
-     *
-     * @param string|null $key
-     * @param null $value
-     */
+
     public function setifnew(string $key = null, $value = null): self
     {
         if (empty($key))
@@ -130,15 +110,6 @@ class Config implements ConfigurationInterface
 
     }
 
-
-    /**
-     * Speichert eine Sysconf-Variable in der Datenbank und im Cache und Optional permanent in der DB
-     *
-     * @param DatabaseInterface $db
-     * @param string|null $key
-     * @param null $value
-     * @return bool
-     */
     public function saveConfVarinDB(DatabaseInterface $db, string $key = null, $value = null): bool
     {
         if (empty($key))
@@ -161,10 +132,6 @@ class Config implements ConfigurationInterface
         return $db->put(self::CONF_TABLE, $d, array('configuration_id'));
     }
 
-    /**
-     *  Lädt alle Variablen aus der DB in den Cache wenn es sie noch nicht gibt, Autoload wird ignoriert seit 20190426
-     * @param DatabaseInterface $db
-     */
     public function loadConfVarsFromDB(DatabaseInterface $db): self
     {
         $liste = $db->getlist('SELECT ckey,cvalue FROM ' . self::CONF_TABLE . ' WHERE active=?', array('yes'));
@@ -175,9 +142,7 @@ class Config implements ConfigurationInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
+
     public function dumpStorage(): array
     {
         return $this->ConfVarArr;
@@ -200,7 +165,7 @@ class Config implements ConfigurationInterface
 
         if ($makedir)
             if (!file_exists($configpath))
-                mkdir($configpath, true);
+                mkdir($configpath, 0777,true);
 
         return $configpath . DIRECTORY_SEPARATOR . $filename . '.json';
     }
