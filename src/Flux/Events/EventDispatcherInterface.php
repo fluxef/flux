@@ -5,7 +5,7 @@ namespace Flux\Events;
 
 interface EventDispatcherInterface
 {
-    public function addListener(string $eventName, EventListenerInterface $listener, int $priority = 0);
+    public function addListener(string $eventName, EventListenerInterface $listener, int $priority = 0): void;
 
     public function dispatch(EventInterface $event, string $eventName = null): EventInterface;
 
