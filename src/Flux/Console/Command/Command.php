@@ -3,10 +3,7 @@ declare(strict_types=1);
 
 namespace Flux\Console\Command;
 
-/**
- * Abstract Class Command
- * @package Flux\Console\Command
- */
+
 abstract class Command implements CommandInterface
 {
 
@@ -26,38 +23,21 @@ abstract class Command implements CommandInterface
 
     protected array $outputTableBuffer = array();
 
-    /**
-     * @return int
-     */
     abstract public function execute(): int;
 
-    abstract public function showHelp();
+    abstract public function showHelp(): void;
 
 
-    /**
-     *
-     * @return void
-     */
-    public function configure()
+    public function configure(): void
     {
 
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @param string $longName
-     * @param string|null $shortName
-     * @param int $flag
-     * @param string $usage
-     * @return void
-     */
     public function addOption(string $longName, ?string $shortName, int $flag = self::OPTION_IS_BOOL, string $usage = ''): void
     {
         $longName = strtolower($longName);
@@ -84,13 +64,7 @@ abstract class Command implements CommandInterface
 
     }
 
-    /**
-     * @param string $name
-     * @param int $flag
-     * @param string $usage
-     * @return void
-     */
-    public function addArgument(string $name, int $flag = self::ARGUMENT_OPTIONAL, string $usage = '')
+    public function addArgument(string $name, int $flag = self::ARGUMENT_OPTIONAL, string $usage = ''): void
     {
         $name = strtolower($name);
         $this->argumentnames[$name] = $flag;
@@ -109,9 +83,6 @@ abstract class Command implements CommandInterface
         $this->argumentusage[] = $a;
     }
 
-    /**
-     * @param string $arg
-     */
     public function parseLongOption(string $arg)
     {
         $pos = strpos($arg, '=');
@@ -129,13 +100,13 @@ abstract class Command implements CommandInterface
         if (!isset($this->optionnames[$name]))
             return;
 
-        // so, jetzt haben wir eine option
+        // so now we have an option
         if ($this->optionnames[$name] == self::OPTION_IS_BOOL) {
             $this->optionvalues[$name] = true;
             return;
         }
 
-        // jetzt brauchen wir einen wert
+        // now we need a value
 
         if (is_null($value)) {
             $this->writeln("mandatory value for " . $name . " is not set");
@@ -146,10 +117,7 @@ abstract class Command implements CommandInterface
 
     }
 
-    /**
-     * @param string $arg
-     */
-    public function parseShortOption(string $arg)
+    public function parseShortOption(string $arg): void
     {
         if (strlen($arg) > 1) {
             $name = substr($arg, 0, 1);
@@ -162,19 +130,19 @@ abstract class Command implements CommandInterface
         if (isset($this->shortoptionnames[$name]))
             $name = $this->shortoptionnames[$name];
         else
-            return;     // nicht gefunden
+            return;     // not found
 
 
         if (!isset($this->optionnames[$name]))
             return;
 
-        // so, jetzt haben wir eine option
+        // so now we have an option
         if ($this->optionnames[$name] == self::OPTION_IS_BOOL) {
             $this->optionvalues[$name] = true;
             return;
         }
 
-        // jetzt brauchen wir einen wert
+        // now we need a value
 
         if (is_null($value)) {
             $this->writeln("mandatory value for " . $name . " is not set");
@@ -185,10 +153,8 @@ abstract class Command implements CommandInterface
 
     }
 
-    /**
-     * @param array $args
-     */
-    public function parseInput(array $args)
+
+    public function parseInput(array $args): void
     {
 
         $params = array();
@@ -221,9 +187,6 @@ abstract class Command implements CommandInterface
 
     }
 
-    /**
-     * @return bool
-     */
     public function verifyInput(): bool
     {
 
@@ -235,10 +198,6 @@ abstract class Command implements CommandInterface
         return true;
     }
 
-    /**
-     * @param string $name
-     * @return mixed
-     */
     public function getOptionValue(string $name): mixed
     {
         if (!isset($this->optionvalues[$name]))
@@ -247,10 +206,7 @@ abstract class Command implements CommandInterface
             return $this->optionvalues[$name];
     }
 
-    /**
-     * @param string $name
-     * @return mixed
-     */
+
     public function getArgumentValue(string $name): mixed
     {
         if (!isset($this->argumentvalues[$name]))
@@ -259,9 +215,7 @@ abstract class Command implements CommandInterface
             return $this->argumentvalues[$name];
     }
 
-    /**
-     * @return string
-     */
+
     public function getUsage(): string
     {
         $ret = 'Usage: ' . $this->name . ' ';
@@ -279,11 +233,8 @@ abstract class Command implements CommandInterface
         return $ret;
     }
 
-    /**
-     * @param string|null $output
-     * @param bool $newline
-     */
-    public function write(?string $output = null, bool $newline = false)
+
+    public function write(?string $output = null, bool $newline = false): void
     {
         if (!empty($output))
             echo($output);
@@ -292,23 +243,19 @@ abstract class Command implements CommandInterface
             echo("\n");
     }
 
-    /**
-     * @param string|null $line
-     */
-    public function writeln(?string $line = null)
+
+    public function writeln(?string $line = null): void
     {
         $this->write($line, true);
     }
 
-    /**
-     * @param array $line
-     */
-    public function writelnTable(array $line)
+
+    public function writelnTable(array $line): void
     {
         $this->outputTableBuffer[] = $line;
     }
 
-    public function flushTableBuffer()
+    public function flushTableBuffer(): void
     {
         $maxlen = array();
 

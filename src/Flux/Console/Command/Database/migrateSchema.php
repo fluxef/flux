@@ -17,21 +17,18 @@ class migrateSchema extends Command implements CommandInterface
     {
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->addArgument('ConnectionName', self::ARGUMENT_REQUIRED, 'Database connection name');
         $this->addOption('help', 'h', self::OPTION_IS_BOOL, 'show usage information');
         $this->addOption('migrate', 'm', self::OPTION_IS_BOOL, 'do migration in database');
     }
 
-    public function showHelp()
+    public function showHelp(): void
     {
         echo $this->getUsage() . "\n";
     }
 
-    /**
-     * @return int
-     */
     public function execute(): int
     {
 

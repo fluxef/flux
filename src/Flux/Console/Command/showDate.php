@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Flux\Console\Command;
 
-/**
- * Class Version
- * @package Flux\Console\Command
- */
+use DateTime;
+
 class showDate extends Command implements CommandInterface
 {
     public function __construct()
@@ -14,19 +12,16 @@ class showDate extends Command implements CommandInterface
 
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->addOption('help', 'h', self::OPTION_IS_BOOL, 'show usage information');
     }
 
-    public function showHelp()
+    public function showHelp(): void
     {
         echo $this->getUsage() . "\n";
     }
 
-    /**
-     * @return int
-     */
     public function execute(): int
     {
 

@@ -25,9 +25,6 @@ class Application extends FluxCoreApplication
 
     }
 
-    /**
-     * @param array $line
-     */
     private function writelnTable(array $line)
     {
         $this->outputTableBuffer[] = $line;
@@ -61,9 +58,6 @@ class Application extends FluxCoreApplication
 
     }
 
-    /**
-     * @param string $prefix
-     */
     public function showHelp(string $prefix = '')
     {
         $this->writelnTable(array('command', 'function'));
@@ -80,9 +74,6 @@ class Application extends FluxCoreApplication
 
     }
 
-    /**
-     *
-     */
     public function execute(): int
     {
         global $argv;

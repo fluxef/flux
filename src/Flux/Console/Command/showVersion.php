@@ -5,12 +5,6 @@ namespace Flux\Console\Command;
 
 use Flux\Console\Application;
 
-
-/**
- * Class Version
- *
- * @package Flux\Console\Command
- */
 class showVersion extends Command implements CommandInterface
 {
     public function __construct()
@@ -18,21 +12,18 @@ class showVersion extends Command implements CommandInterface
 
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->addOption('verbose', 'v', self::OPTION_IS_BOOL, 'show verbose information');
         $this->addOption('help', 'h', self::OPTION_IS_BOOL, 'show usage information');
 
     }
 
-    public function showHelp()
+    public function showHelp(): void
     {
         echo $this->getUsage() . "\n";
     }
 
-    /**
-     * @return int
-     */
     public function execute(): int
     {
 
