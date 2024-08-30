@@ -23,6 +23,7 @@ Please review [our security policy](SECURITY.md) on how to report security vulne
 ## License
 
 Flux is open-sourced software licensed under the [MIT license](LICENSE).
+With the MIT license, the software "as is" is provided without guarantee of any kind. However, a commercial support and service license is also available for projects in which legal liability issues are relevant.
 
 
 ## About Us
