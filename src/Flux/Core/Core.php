@@ -12,7 +12,7 @@ use Flux\Config\Config;
 
 class Core implements ApplicationInterface
 {
-    protected string $coreversion = '6.0.0';
+    protected string $coreversion = '6.1.0';
     const   int ProductionEnvironmentState = 0;
     const   int StagingEnvironmentState = 1;
     const   int DevelopmentEnvironmentState = 2;
