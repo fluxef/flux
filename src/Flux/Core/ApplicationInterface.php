@@ -27,7 +27,7 @@ interface ApplicationInterface
 
     public function isDevelopment(): bool;
 
-    public function getVersion(bool $all = false): string;
+    public function getVersion(bool $parent = false): string;
 
     public function setbasePath(string $basePath): ApplicationInterface;
 

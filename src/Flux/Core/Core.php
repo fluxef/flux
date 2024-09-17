@@ -143,7 +143,7 @@ class Core implements ApplicationInterface
         return $this->ApplicationEnvironmentState == static::DevelopmentEnvironmentState;
     }
 
-    public function getVersion(bool $all = false): string
+    public function getVersion(bool $parent = false): string
     {
         return $this->coreversion;
     }
