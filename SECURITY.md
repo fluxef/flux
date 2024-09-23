@@ -6,7 +6,7 @@ This versions of Flux are currently being supported with security updates.
 
 | Version | Supported          |
 |---------|--------------------|
-| 6.0.x   | :white_check_mark: |
+| > 6.0.x | :white_check_mark: |
 | 5.13.x  | :white_check_mark: |
 | < 5.13  | :x:                |
 
